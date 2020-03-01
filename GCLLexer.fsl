@@ -1,0 +1,59 @@
+// The generated lexer module will start with this code
+{
+module GCLLexer
+open Microsoft.FSharp.Text.Lexing
+// open the module that defines the tokens
+open GCLParser
+}
+
+// We define macros for some regular expressions we will use later
+let digit       = ['0'-'9']
+let var			= ['a'-'z' 'A'-'Z'] (['a'-'z' 'A'-'Z' '_'] | digit)*
+let char        = ['a'-'z' 'A'-'Z'] 
+let num         = digit+ 
+let whitespace  = [' ' '\t']
+let newline     = "\n\r" | '\n' | '\r' 
+
+
+
+// We define now the rules for recognising and building tokens for each of the tokens of our language we need a rule
+rule tokenize = parse
+
+// deal with tokens that need to be ignored (skip them)
+| whitespace    { tokenize lexbuf }
+| newline       { lexbuf.EndPos <- lexbuf.EndPos.NextLine; tokenize lexbuf; }
+
+// deal with tokens that need to be built
+| num           { NUM(Double.Parse(LexBuffer<_>.LexemeString lexbuf)) }
+| '*'           { TIMES }
+| '/'           { DIV }
+| '+'           { PLUS }
+| '-'           { MINUS }
+| '^'           { POW }
+| '&'           { AND }
+| "&&"          { DAND }
+| '|'           { OR }
+| "||"          { DOR }
+| '!'           { NOT }
+| '('           { LPAR }
+| ')'           { RPAR }
+| "[]"          { SQB }
+| "->"			{ IMPL }
+| ';'			{ SEM }
+| ":="			{ ASSIGN }
+| "if"			{ IF }
+| "fi"			{ FI }
+| "do"			{ DO }
+| "od"			{ OD }
+| "true"		{ TRUE }
+| "false"		{ FALSE }
+| "skip"		{ SKIP }
+| '='			{ EQ }
+| '<'			{ LESS }
+| '>'			{ GREATER }
+| "<="			{ LEQ }
+| ">="			{ GEQ }
+| "!="			{ NEQ }
+| var			{ VAR(LexBuffer<_>.LexemeString lexbuf)}
+| eof           { EOF }
+
