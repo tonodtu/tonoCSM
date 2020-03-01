@@ -1,7 +1,7 @@
 // This script implements our interactive calculator
 
 // We need to import a couple of modules, including the generated lexer and parser
-#r "C:/Users/blanc/.nuget/packages/fslexyacc.runtime/7.0.6/lib/portable-net45+netcore45+wpa81+wp8+MonoAndroid10+MonoTouch10/FsLexYacc.Runtime.dll"
+#r "C:/Users/tonoi/.nuget/packages/fslexyacc.runtime/7.0.6/lib/portable-net45+netcore45+wpa81+wp8+MonoAndroid10+MonoTouch10/FsLexYacc.Runtime.dll"
 
 open Microsoft.FSharp.Text.Lexing
 open System
